@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Xspeedit:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="Xspeedit-1.3.5.RELEASE.war">
+      <element id="artifact" artifact-name="Xspeedit:war exploded" />
+    </root>
+  </artifact>
+</component>

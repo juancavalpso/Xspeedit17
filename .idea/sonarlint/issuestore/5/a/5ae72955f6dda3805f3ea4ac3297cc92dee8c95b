@@ -1,0 +1,11 @@
+
+tsquid:UselessImportCheck"FRemove this unused import 'org.springframework.stereotype.Controller'.(øŠ—Öùÿÿÿÿ8Èç¾Â,
+bsquid:S1226"AIntroduce a new variable instead of reusing the parameter "suma".(¾ïëæıÿÿÿÿ8Èç¾Â,
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.( Ò´Ï8Èç¾Â,
+Osquid:UselessParenthesesCheck"!Remove these useless parentheses.(—â†°8Èç¾Â,
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(¾ƒÎ8Èç¾Â,
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.( Ò´Ï8Èç¾Â,
+lsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(øÁÙëúÿÿÿÿ8Èç¾Â,

@@ -25,7 +25,7 @@ public class HelloController {
      * @return
      */
     @RequestMapping("/test/{n}")
-    public int[] test(@PathVariable long n){
+    public String test(@PathVariable long n){
 
         /* Separamos cadena de manera recursiva */
         String[] arr = separa(n, "").split("") ;
@@ -35,19 +35,58 @@ public class HelloController {
             numeros[i]=Integer.valueOf(arr[i]);
         }
 
-        double i = sumOfArray(numeros,numeros.length-1);
+        //double i = sumOfArray(numeros,numeros.length-1);
+        String total = sumOfArray(numeros,0,numeros.length-1, 0, "");
 
-        return numeros;
+        return total;
     }
 
-    public double sumOfArray(int[] a, int n) {
-        if (n == 0)
-            return a[n];
-        else
-            return a[n] + sumOfArray(a, n-1);
+
+    public String sumOfArray(int[] a,int actual, int fin, int suma, String tot) {
+        if (actual < fin) {
+            if (suma <= 10) {
+                suma = a[actual] + a[actual + 1];
+                if(suma<=10){
+                    tot = tot + a[actual];
+                    return sumOfArray(a, actual + 1, fin, suma, tot);
+                }else {
+                    tot = tot + a[actual]+"/";
+                    return sumOfArray(a, actual + 1, fin, suma, tot);
+                }
+            } else {
+                if(a[actual]+ a[actual + 1] >= 10)
+                    tot = tot + a[actual]+"/";
+                else{
+                    tot = tot + "/";
+                }
+
+
+
+                return sumOfArray(a, actual + 1, fin, 0, tot);
+            }
+        }
+
+        tot = tot + a[actual];
+        return tot;
     }
 
-    private static String separa(long n, String r){
+
+    public String sumOfArray2(int[] a,int actual, int fin, int suma, String tot) {
+        if(actual<fin) {
+            suma = a[actual] + a[actual + 1];
+            tot = tot + a[actual];
+            if (suma <= 10)
+                return sumOfArray2(a, actual + 1, fin, suma, tot);
+            else {
+                tot = tot + "/";
+                return sumOfArray2(a, actual + 1, fin, 0, tot);
+            }
+        }
+        tot = tot + a[actual];
+        return tot;
+    }
+
+    protected static String separa(long n, String r){
         if( n < 10 )
             return r;
         else if ( n/10 >= 1000 && r.equals(""))
