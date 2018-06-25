@@ -28,4 +28,13 @@ public class HelloControllerTest {
 
     }
 
+    @Test
+    public void test02(){
+
+        int i = new HelloController().sumaDigitos(1234);
+
+        Assert.assertNotNull(i);
+
+    }
+
 }

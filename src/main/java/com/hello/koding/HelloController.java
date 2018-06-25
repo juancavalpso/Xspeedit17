@@ -95,5 +95,14 @@ public class HelloController {
             return separa(n/10, ""+(((n/10))%10) + r );
     }
 
+    protected static long sumaDigitos(long num){
+        if(num==0){
+            return 0;
+        } else {
 
+
+
+            return sumaDigitos(num/10) + num%10;
+        }
+    }
 }
