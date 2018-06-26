@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @EnableAutoConfiguration
 public class HelloController {
@@ -35,7 +38,7 @@ public class HelloController {
             numeros[i]=Integer.valueOf(arr[i]);
         }
 
-        String total = embalajeSumaColinActuel(numeros,0,numeros.length-1, 0, "");
+        String total = embalajeSumaColinActuel(numeros,0, 0, "");
 
         return total;
     }
@@ -45,49 +48,48 @@ public class HelloController {
      * Robot actuel
      * Ex: 10 cartons utilisés
      *
-     * @param a
-     * @param actual
-     * @param fin
+     * @param arr
+     * @param position
      * @param suma
      * @param tot
      * @return
      */
-    protected String embalajeSumaColinActuel(int[] a,int actual, int fin, int suma, String tot){
-        if(actual<=fin) {
-            if(suma+a[actual]<=10){
-                suma += a[actual];
-                tot  += a[actual];
+    protected String embalajeSumaColinActuel(int[] arr,int position, int suma, String tot){
+        if(position <= arr.length-1) {
+            if(suma + arr[position] <= 10){
+                suma += arr[position];
             }else{
                 tot = tot + "/";
-                tot += a[actual];
-                suma = a[actual];
+                suma = arr[position];
             }
-            return embalajeSumaColinActuel(a, actual + 1, fin, suma, tot);
+            tot += arr[position];
+            return embalajeSumaColinActuel( arr, position + 1, suma, tot);
         }
         return tot;
     }
 
     /**
      *
-     * @param a
-     * @param actual
-     * @param fin
+     * @param arr
+     * @param position
      * @param suma
      * @param tot
      * @return
      */
-    protected String embalajeSumaColinOptimise(int[] a,int actual, int fin, int suma, String tot){
-        if(actual<=fin) {
-            if(suma+a[actual]==10){
-                suma += a[actual];
-                tot  += a[actual];
+    protected String embalajeSumaColinOptimise(ArrayList<Integer> arr, int position, int suma, String tot){
+
+        if(arr.size()>=0){
+            if(suma+arr.get(position)<=10){
+                suma += arr.get(position);
             }else{
                 tot = tot + "/";
-                tot += a[actual];
-                suma = a[actual];
+                suma = arr.get(position);
             }
-            return embalajeSumaColinOptimise(a, actual + 1, fin, suma, tot);
+            tot += arr.get(position);
+            arr.remove(position);
+            return embalajeSumaColinOptimise( arr, position, suma, tot);
         }
+
         return tot;
     }
 
