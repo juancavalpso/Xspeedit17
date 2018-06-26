@@ -1,40 +1,34 @@
 package com.hello.koding;
 
-
-import org.jboss.arquillian.core.api.annotation.Inject;
-import org.jboss.arquillian.test.spi.enricher.resource.ResourceProvider;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class HelloControllerTest {
 
-@ResourceProvider.ClassInjection
     private HelloController helloController;
 
+    @Before
+    public void init() {
+        helloController = new HelloController();
+    }
+
 
     @Test
-    public void test01(){
-
-        // Chaîne d'articles en entrée
+    public void embalaje_test(){
         Long articles = 163841689525773L;
+        /* Separamos cadena de manera recursiva */
+        String[] arr = helloController.separa(articles, "").split("") ;
+        /* convertimos la cadena a int */
+        int[] numeros = new int[arr.length];
+        for (int i=0; i< arr.length; i++){
+            numeros[i]=Integer.valueOf(arr[i]);
+        }
 
-        // Chaîne d'articles emballés
-        String resultado = new HelloController().test(articles);
+        String resultado = helloController.embalajeSumaColinActuel(numeros,0,numeros.length-1, 0, "");
 
-        // Robot Actuel
         Assert.assertEquals("163/8/41/6/8/9/52/5/7/73",resultado);
-
-
     }
 
-    @Test
-    public void test02(){
-
-        int i = new HelloController().sumaDigitos(1234);
-
-        Assert.assertNotNull(i);
-
-    }
 
 }

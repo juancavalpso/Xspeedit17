@@ -35,58 +35,80 @@ public class HelloController {
             numeros[i]=Integer.valueOf(arr[i]);
         }
 
-        //double i = sumOfArray(numeros,numeros.length-1);
-        String total = sumOfArray(numeros,0,numeros.length-1, 0, "");
+        String total = embalajeSumaColinActuel(numeros,0,numeros.length-1, 0, "");
 
         return total;
     }
 
-
-    public String sumOfArray(int[] a,int actual, int fin, int suma, String tot) {
-        if (actual < fin) {
-            if (suma <= 10) {
-                suma = a[actual] + a[actual + 1];
-                if(suma<=10){
-                    tot = tot + a[actual];
-                    return sumOfArray(a, actual + 1, fin, suma, tot);
-                }else {
-                    tot = tot + a[actual]+"/";
-                    return sumOfArray(a, actual + 1, fin, suma, tot);
-                }
-            } else {
-                if(a[actual]+ a[actual + 1] >= 10)
-                    tot = tot + a[actual]+"/";
-                else{
-                    tot = tot + "/";
-                }
-
-
-
-                return sumOfArray(a, actual + 1, fin, 0, tot);
-            }
-        }
-
-        tot = tot + a[actual];
-        return tot;
-    }
-
-
-    public String sumOfArray2(int[] a,int actual, int fin, int suma, String tot) {
-        if(actual<fin) {
-            suma = a[actual] + a[actual + 1];
-            tot = tot + a[actual];
-            if (suma <= 10)
-                return sumOfArray2(a, actual + 1, fin, suma, tot);
-            else {
+    /**
+     * Chaîne d'articles emballés : 163841689525773
+     * Robot actuel
+     * Ex: 10 cartons utilisés
+     *
+     * @param a
+     * @param actual
+     * @param fin
+     * @param suma
+     * @param tot
+     * @return
+     */
+    protected String embalajeSumaColinActuel(int[] a,int actual, int fin, int suma, String tot){
+        if(actual<=fin) {
+            if(suma+a[actual]<=10){
+                suma += a[actual];
+                tot  += a[actual];
+            }else{
                 tot = tot + "/";
-                return sumOfArray2(a, actual + 1, fin, 0, tot);
+                tot += a[actual];
+                suma = a[actual];
             }
+            return embalajeSumaColinActuel(a, actual + 1, fin, suma, tot);
         }
-        tot = tot + a[actual];
         return tot;
     }
 
-    protected static String separa(long n, String r){
+    /**
+     *
+     * @param a
+     * @param actual
+     * @param fin
+     * @param suma
+     * @param tot
+     * @return
+     */
+    protected String embalajeSumaColinOptimise(int[] a,int actual, int fin, int suma, String tot){
+        if(actual<=fin) {
+            if(suma+a[actual]==10){
+                suma += a[actual];
+                tot  += a[actual];
+            }else{
+                tot = tot + "/";
+                tot += a[actual];
+                suma = a[actual];
+            }
+            return embalajeSumaColinOptimise(a, actual + 1, fin, suma, tot);
+        }
+        return tot;
+    }
+
+    private int[] vector;
+
+    public void leerVector(int pos){
+        if (pos == vector.length-1) {
+            System.out.println("Elemento en posición "+pos + " es "+vector[pos]);
+        } else {
+            System.out.println("Elemento en posición "+pos + " es "+vector[pos]);
+            leerVector(pos+1);
+        }
+    }
+
+    /**
+     *
+     * @param n
+     * @param r
+     * @return
+     */
+    protected String separa(long n, String r){
         if( n < 10 )
             return r;
         else if ( n/10 >= 1000 && r.equals(""))
@@ -95,14 +117,4 @@ public class HelloController {
             return separa(n/10, ""+(((n/10))%10) + r );
     }
 
-    protected static long sumaDigitos(long num){
-        if(num==0){
-            return 0;
-        } else {
-
-
-
-            return sumaDigitos(num/10) + num%10;
-        }
-    }
 }
